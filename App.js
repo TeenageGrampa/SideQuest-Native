@@ -7,6 +7,7 @@ import LoginPage from './components/LoginPage';
 import NewClass from './components/NewClass';
 import NewRace from './components/NewRace';
 import SignUpPage from './components/SignUpPage';
+import StatRoll from './components/StatRoll';
 import ProfilePage from './components/ProfilePage';
 import { applyMiddleware, createStore } from 'redux'
 import { Provider } from 'react-redux'
@@ -49,6 +50,9 @@ const AppNavigator = createStackNavigator({
   }, 
   NewRace: {
     screen: NewRace
+  },
+  StatRoll: {
+    screen: StatRoll
   }
 }, {
   initialRouteName: "Home"

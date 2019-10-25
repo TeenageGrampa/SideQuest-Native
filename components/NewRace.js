@@ -58,7 +58,7 @@ class NewCharacter extends React.Component{
                     vision: this.props.newCharRace.vision,
                     traits: this.props.newCharRace.traits
                 })
-            }).then(r => r.json()).then(this.props.history.push('/StatRoll'))
+            }).then(r => r.json()).then(this.props.navigation.navigate('StatRoll'))
     }
 
     handleLogout = () => {
