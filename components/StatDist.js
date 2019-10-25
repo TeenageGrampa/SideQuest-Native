@@ -15,10 +15,10 @@ class StatDist extends React.Component {
 
     }
 
-    handleClick = (e) => {
-        this.props.getStat(e.target.value)
+    handleClick = (value) => {
+        this.props.getStat(value)
         this.setState({
-            [e.target.value]: true
+            [value]: true
         })
     }
 
@@ -37,29 +37,29 @@ class StatDist extends React.Component {
     render(){
         return(
             <View>
-                {this.state.strength === false ? <Button title="Strength"
+                {this.state.strength === false ? <Button  title="Strength"
                  onPress={() =>
-                    this.handleClick()
+                    this.handleClick("strength")
                     }/> : null }
-                {this.state.dexterity === false ? <Button title="Dexterity"
+                {this.state.dexterity === false ? <Button title="Dexterity" 
                  onPress={() =>
-                    this.handleClick()
+                    this.handleClick("dexterity")
                     }/> : null }
-                {this.state.constitution=== false ? <Button title="Constitution"
+                {this.state.constitution=== false ? <Button title="Constitution" 
                  onPress={() =>
-                    this.handleClick()
+                    this.handleClick("constitution")
                     }/> : null }
-                {this.state.intelligence === false ? <Button title="Itelligence"
+                {this.state.intelligence === false ? <Button title="Itelligence" 
                  onPress={() =>
-                    this.handleClick()
+                    this.handleClick("intelligence")
                     }/> : null }
-                {this.state.wisdom === false ? <Button title="Wisdom"
+                {this.state.wisdom === false ? <Button title="Wisdom" 
                  onPress={() =>
-                    this.handleClick()
+                    this.handleClick("wisdom")
                     }/> : null }
-                {this.state.charisma === false ? <Button title="Charisma"
+                {this.state.charisma === false ? <Button title="Charisma" 
                  onPress={() =>
-                    this.handleClick()
+                    this.handleClick("charisma")
                     }/> : null }
                 {/* <button onClick={this.resetStats}>reset</button> */}
             </View>

@@ -1,7 +1,8 @@
 import React from  'react'
 import { connect } from 'react-redux'
 import StatDist from './StatDist'
-import { StyleSheet, Button, Text, View, Image, ImageBackground, Picker, SafeAreaView, TextInput } from 'react-native';
+import { Modal, StyleSheet, Button, Text, View, Image, ImageBackground, Picker, SafeAreaView, TextInput } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 
 
 class NewCharacter extends React.Component{
@@ -15,7 +16,8 @@ class NewCharacter extends React.Component{
             charisma: 0,
         },
         statRoll: [],
-        statVal: []
+        statVal: [],
+        ModalVisible: true
     }
     
 
@@ -32,7 +34,8 @@ class NewCharacter extends React.Component{
             stats[asiAtr[i]] = asi[i].value
         }
         this.setState({
-            stats: stats
+            stats: stats, 
+            statVal: [15, 14, 13, 12, 10, 8]
         })
     }
 
@@ -168,200 +171,126 @@ class NewCharacter extends React.Component{
             return 10
         }
     }
+    setModalVisible(visible) {
+        this.setState({modalVisible: visible});
+      }
 
-    // getClassImg = (charClass) => {
-    //     if(charClass === 'Rogue'){
-    //         return require('./hooded-assassin.png')
-    //     } else if(charClass === 'Barbarian'){
-    //         return require('./barbarian.png')
-    //     } else if(charClass === 'Paladin'){
-    //         return require('./elf-helmet.png')
-    //     } else if(charClass === 'Warlock'){
-    //         return require('./warlock-hood.png')
-    //     } else if(charClass === 'Ranger'){
-    //         return require('./cowled.png')
-    //     } else if(charClass === 'Bard'){
-    //         return require('./musical-notes.png')
-    //     } else if(charClass === 'Cleric'){
-    //         return require('./pope-crown.png')
-    //     } else if(charClass === 'Druid'){
-    //         return require('./wolf-head.png')
-    //     } else if(charClass === 'Fighter'){
-    //         return require('./swordman.png')
-    //     } else if(charClass === 'Monk'){
-    //         return require('./monk-face.png')
-    //     } else if(charClass === 'Sorcerer'){
-    //         return require('./robe.png')
-    //     } else if(charClass === 'Wizard'){
-    //         return require('./wizard-staff.png')
-    //     }
-    // }
-
-    // getRaceImg = (charRace) => {
-    //     if(charRace === 'Dwarf'){
-    //         return require('./dwarf-king.png')
-    //     } else if(charRace === 'Hill Dwarf'){
-    //         return require('./dwarf-king.png')
-    //     } else if(charRace === 'Elf'){
-    //         return require('./woman-elf-face.png')
-    //     }else if(charRace === 'High Elf'){
-    //         return require('./woman-elf-face.png')
-    //     } else if(charRace === 'Halfling'){
-    //         return require('./hobbit-dwelling.png')
-    //     } else if(charRace === 'Lightfoot'){
-    //         return require('./hobbit-dwelling.png')
-    //     } else if(charRace === 'Human'){
-    //         return require('./sensuousness.png')
-    //     } else if(charRace === 'Dragonborn'){
-    //         return require('./spiked-dragon-head.png')
-    //     } else if(charRace === 'Gnome'){
-    //         return require('./bad-gnome.png')
-    //     } else if(charRace === 'Rock Gnome'){
-    //         return require('./bad-gnome.png')
-    //     } else if(charRace === 'Half-Elf'){
-    //         return require('./elf-ear.png')
-    //     } else if(charRace === 'Half-Orc'){
-    //         return require('./orc-head.png')
-    //     } else if(charRace === 'Tiefling'){
-    //         return require('./horned-reptile.png')
-    //     } 
-    // }
+   
 
     render(){
-            const asi = this.props.newCharRace.asi.map(asi => <p>{asi.attributes} - {asi.value}</p>)
-            // const clasImg = this.getClassImg(this.props.newCharClass.name)
-            // const raceImg = this.getRaceImg(this.props.newCharRace.name)
+            const asi = this.props.newCharRace.asi.map(asi => <Text>{asi.attributes} - {asi.value}</Text>)
+            let critFail = {
+                uri: 'https://i.imgur.com/nA0aPof.gif'
+              };
         return(
-        //    <div className="container">
-        //        <div className="columns">
-        //         <div className="column is-1 tile" style={{paddingTop: 100}}>
-        //         <ul>
-        //         <h2>Stats:</h2><br></br>{this.state.stats.strength > 0 &&
-        //         this.state.stats.charisma > 0 &&
-        //         this.state.stats.constitution > 0 &&
-        //         this.state.stats.intelligence > 0 &&
-        //         this.state.stats.wisdom > 0 &&
-        //         this.state.stats.dexterity > 0 ?
-        //         <button onClick={this.handleNext} className="button is-black" style={{borderStyle: 'ridge', boxShadow: '10px 10px 18px -5px rgba(0,0,0,0.75)', borderRadius: 10}}>Confirm</button> : null
-        //         }
-        //         <br></br>
-        //         <div className="is-child">
-        //         <p>Strength</p><br></br>
-        //         <p className="box" style={{borderStyle: 'ridge', width: 60, boxShadow: '10px 10px 18px -5px rgba(0,0,0,0.75)'}}>{this.state.stats.strength}</p>
-        //         </div><br></br>
-        //         <div className="is-child">
-        //         <p>Dexterity</p><br></br>
-        //         <p className="box" style={{borderStyle: 'ridge', width: 60, boxShadow: '10px 10px 18px -5px rgba(0,0,0,0.75)'}}>{this.state.stats.dexterity}</p>
-        //         </div><br></br>
-        //         <div className="is-child">
-        //         <p>Constitution</p><br></br>
-        //         <p className="box" style={{borderStyle: 'ridge', width: 60, boxShadow: '10px 10px 18px -5px rgba(0,0,0,0.75)'}}>{this.state.stats.constitution}</p>
-        //         </div><br></br>
-        //         <div className="is-child">
-        //         <p>Intelligence</p><br></br>
-        //         <p className="box" style={{borderStyle: 'ridge', width: 60, boxShadow: '10px 10px 18px -5px rgba(0,0,0,0.75)'}}>{this.state.stats.intelligence}</p>
-        //         </div><br></br>
-        //         <div className="is-child">
-        //         <p>Wisdom</p><br></br>
-        //         <p className="box" style={{borderStyle: 'ridge', width: 60, boxShadow: '10px 10px 18px -5px rgba(0,0,0,0.75)'}}>{this.state.stats.wisdom}</p>
-        //         </div><br></br>
-        //         <div className="is-child">
-        //         <p>Charisma</p><br></br>
-        //         <p className="box" style={{borderStyle: 'ridge', width: 60, boxShadow: '10px 10px 18px -5px rgba(0,0,0,0.75)'}}>{this.state.stats.charisma}</p>
-        //         </div><br></br>
-        //         </ul> 
-        //         </div>
-
-                
-        //        <div className="column" style={{paddingTop: 100, paddingLeft: 100}}>
-        //        <div className="columns ">
-        //         <div className="column" style={{display: 'block', marginLeft: 'auto', marginRight: 'auto'}}>
-        //             <h2>Chosen Race: </h2>
-        //             {this.props.newCharRace.name}
-        //             <img src={raceImg} alt="" style={{borderStyle: 'ridge', boxShadow: '10px 10px 18px -5px rgba(0,0,0,0.75)', borderRadius: 10}} className="image floating is-96x96" />
+        <SafeAreaView>
+            <ScrollView>
+            <View>
+            <Modal
+                animationType="slide"
+                transparent={false}
+                visible={this.state.modalVisible}
+                onRequestClose={() => {
+                    Alert.alert('Modal has been closed.');
+                }}>
+                <View style={{marginTop: 22}}>
+                    <View>
+                    <Image source={critFail} style={{width: 200, height: 200}}/>
+                    <Text>Unfortunately rolling your own stats is only available on our Web version. However, if you so wish to continue you may use preditermined rolls as provided by the 5e Players Handbook. Shall you continue? </Text>
+                    <Button title="Confirm"
+                        onPress={() =>
+                            this.setModalVisible(!this.state.modalVisible)
+                            }/>
+                    <Button title="Back to Profile"
+                        onPress={() =>
+                            this.props.navigation.navigate('Profile')
+                            }/>
+                    </View>
+                </View>
+            </Modal>
+            <Text>You may choose your stats by picking from these standard scores:
+            15, 14, 13, 12, 10, 8
+            </Text>
+                <View >
+                    <Text>Stats:</Text>{this.state.stats.strength > 0 &&
+                    this.state.stats.charisma > 0 &&
+                    this.state.stats.constitution > 0 &&
+                    this.state.stats.intelligence > 0 &&
+                    this.state.stats.wisdom > 0 &&
+                    this.state.stats.dexterity > 0 ?
+                    <Button title="Confirm"
+                    onPress={() =>
+                        this.handleNext()
+                        }/> : null
+                    }
                     
-        //         </div>
-        //         <div className="column">
-        //         <h2>Chosen Class: </h2>
-        //         {this.props.newCharClass.name}
-        //         <img src={clasImg} alt="" className="image floating is-96x96" style={{borderStyle: 'ridge', boxShadow: '10px 10px 18px -5px rgba(0,0,0,0.75)', borderRadius: 10}}/>
-        //         </div>
-        //         <div className="column">
-        //         <h2>Ability score increases: {asi}</h2>
-        //         </div>
-        //         </div>
-        //         <div className=" columns hero-body" style={{borderStyle: 'ridge',  borderRadius: 10, backgroundImage: `url(http://fanaru.com/fantasy-art/image/232259-fantasy-art-a-burning-rose.gif)`, backgroundSize: 'cover', boxShadow: '10px 10px 18px -5px rgba(0,0,0,0.75)'}}>
-        //        <div className="column is-3">
-        //        <button onClick={this.handleLogout} className="button is-black" style={{marginLeft: 100}}>Logout</button>
-        //        <h1 className="subtitle navHead column is-11" style={{color: 'white'}}>Roll Your Stats:</h1>
-        //        <p style={{color: 'white'}}>You roll 4 dice and keep the highest 3 numbers. After 6 numbers are collected you may allocate them to your stats as you wish.</p>
-        //        </div>
-        //        <div className="column is-9">
-        //        {this.state.statVal && this.state.statVal.length < 6 ? 
-        //             <div >
-        //                 <h1 className="subtitle" style={{color: 'white'}}>Your Rolls: {this.state.statVal.map(stat => `${stat} `)}</h1>
-        //             </div>  
-        //             : null  
-        //         }
-        //         {this.state.statVal.length === 6 ? 
-        //         <div >
-        //             <h1 className="title" style={{color: 'white'}}>Your Rolls: {this.state.statVal.map(stat => `${stat} `)}</h1>
-        //             <h2 className="title" style={{color: 'white'}}>Add {this.state.statVal[0]} to: </h2>
-        //             <StatDist statVals={this.state.statVal} wisdom={this.state.wisdom} strength={this.state.strength} charisma={this.state.charisma} intelligence={this.state.intelligence} dexterity={this.state.dexterity} constitution={this.state.constitution} getStat={this.getStat}/>
-        //         </div> 
-        //         : null
-        //         }
-        //        </div>
-        //        </div>
-               
-        //        <div className="columns"  >
-                
-
-        //         <div className="column is-3" style={{paddingTop: 100, paddingLeft: 100}}>
-        //         <ReactDice
-        //             numDice={1}
-        //             rollDone={this.rollDoneCallback}
-        //             ref={dice => this.reactDice = dice}
-        //             faceColor={'#696969'}
-        //             dotColor={'#D3D3D3'}
-        //             />
-        //         </div>
-        //         <div className="column is-3" style={{paddingTop: 100, paddingLeft: 100}}>
-        //         <ReactDice
-        //             numDice={1}
-        //             rollDone={this.rollDoneCallback}
-        //             ref={dice => this.reactDice = dice}
-        //             faceColor={'#696969'}
-        //             dotColor={'#D3D3D3'}
-        //             />
-        //         </div>
-                
-        //         <div className="column is-3" style={{paddingTop: 100, paddingLeft: 100}}>
-        //         <ReactDice
-        //             numDice={1}
-        //             rollDone={this.rollDoneCallback}
-        //             ref={dice => this.reactDice = dice}
-        //             faceColor={'#696969'}
-        //             dotColor={'#D3D3D3'}
-        //             />
-        //         </div>
-        //         <div className="column is-3" style={{paddingTop: 100, paddingLeft: 100}}>
-        //         <ReactDice
-        //             numDice={1}
-        //             rollDone={this.rollDoneCallback}
-        //             ref={dice => this.reactDice = dice}
-        //             faceColor={'#696969'}
-        //             dotColor={'#D3D3D3'}
-        //             />
-        //         </div>
-        //     </div>
-        //        </div>
-        //        </div>
-        //    </div> 
-
-        <View>
-            <Text>Dice</Text>
+                    <View>
+                    <Text>Strength</Text>
+                    <Text >{this.state.stats.strength}</Text>
+                    </View>
+                    <View>
+                    <Text>Dexterity</Text>
+                    <Text >{this.state.stats.dexterity}</Text>
+                    </View>
+                    <View>
+                    <Text>Constitution</Text>
+                    <Text >{this.state.stats.constitution}</Text>
+                    </View>
+                    <View>
+                    <Text>Intelligence</Text>
+                    <Text >{this.state.stats.intelligence}</Text>
+                    </View>
+                    <View>
+                    <Text>Wisdom</Text>
+                    <Text >{this.state.stats.wisdom}</Text>
+                    </View>
+                    <View>
+                    <Text>Charisma</Text>
+                    <Text >{this.state.stats.charisma}</Text>
+                    </View>
+                </View>     
+                <View>
+                    <View>
+                        <View>
+                            <Text>Chosen Race: </Text>
+                            <Text>{this.props.newCharRace.name}</Text>
+                            {/* <img src={raceImg} alt="" style={{borderStyle: 'ridge', boxShadow: '10px 10px 18px -5px rgba(0,0,0,0.75)', borderRadius: 10}} className="image floating is-96x96" /> */}
+                            
+                        </View>
+                        <View >
+                            <Text>Chosen Class: </Text>
+                            <Text>{this.props.newCharClass.name}</Text>
+                            {/* <img src={clasImg} alt="" className="image floating is-96x96" style={{borderStyle: 'ridge', boxShadow: '10px 10px 18px -5px rgba(0,0,0,0.75)', borderRadius: 10}}/> */}
+                        </View>
+                        <View >
+                            <Text>Ability score increases: {asi}</Text>
+                        </View>
+                    </View>
+                    <View >
+                        <View >
+                            {/* <button onClick={this.handleLogout} className="button is-black" style={{marginLeft: 100}}>Logout</button> */}
+                            <Text >Roll Your Stats:</Text>
+                            <Text >You roll 4 dice and keep the highest 3 numbers. After 6 numbers are collected you may allocate them to your stats as you wish.</Text>
+                        </View>
+                        <View >
+                        {this.state.statVal && this.state.statVal.length < 6 ? 
+                        <View >
+                            <Text className="subtitle" style={{color: 'white'}}>Your Rolls: {this.state.statVal.map(stat => `${stat} `)}</Text>
+                        </View>  
+                        : null  }
+                        {this.state.statVal.length === 6 ? 
+                        <View >
+                            <Text >Your Rolls: {this.state.statVal.map(stat => `${stat} `)}</Text>
+                            <Text >Add {this.state.statVal[0]} to: </Text>
+                            <StatDist statVals={this.state.statVal} wisdom={this.state.wisdom} strength={this.state.strength} charisma={this.state.charisma} intelligence={this.state.intelligence} dexterity={this.state.dexterity} constitution={this.state.constitution} getStat={this.getStat}/>
+                        </View> 
+                        : null}
+                    </View>
+                </View>
+            </View>
         </View>
+        </ScrollView>
+        </SafeAreaView>
         )
     }
 }

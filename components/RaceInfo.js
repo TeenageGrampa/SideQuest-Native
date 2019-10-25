@@ -67,7 +67,7 @@ class RaceInfo extends React.Component{
             <View >
                 {this.state.showSubRace === true ? <Text >{this.props.charRace.subraces[0].name}</Text> : <Text >{this.props.charRace.name}</Text>}
                 {/* <img src={raceImg} alt="" className="floating" style={{borderStyle: 'ridge', boxShadow: '10px 10px 18px -5px rgba(0,0,0,0.75)', borderRadius: 30, display: 'block', marginLeft: 'auto', marginRight: 'auto', width: 400}} /> */}
-                <Button title="Choose Class"
+                <Button title="Choose Race"
                  onPress={() =>
                     this.handleClick()
                     }/>
