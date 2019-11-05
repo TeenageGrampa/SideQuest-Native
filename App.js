@@ -5,6 +5,7 @@ import {  createAppContainer } from 'react-navigation';
 import HomePage from './components/HomePage';
 import LoginPage from './components/LoginPage';
 import NewClass from './components/NewClass';
+import NewCharacter from './components/NewCharacter';
 import NewRace from './components/NewRace';
 import SignUpPage from './components/SignUpPage';
 import StatRoll from './components/StatRoll';
@@ -53,6 +54,9 @@ const AppNavigator = createStackNavigator({
   },
   StatRoll: {
     screen: StatRoll
+  },
+  NewCharacter: {
+    screen: NewCharacter
   }
 }, {
   initialRouteName: "Home"

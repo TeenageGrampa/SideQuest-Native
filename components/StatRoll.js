@@ -109,7 +109,7 @@ class NewCharacter extends React.Component{
                     wismod: wisMod,
                     chrmod: chrMod
                 })
-            }).then(r => r.json()).then(this.props.history.push('./NewCharacter'))
+            }).then(r => r.json()).then(this.props.navigation.navigate('NewCharacter'))
         // this.props.history.push('./NewCharacter')
     }
 
