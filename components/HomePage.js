@@ -27,7 +27,7 @@ class HomePage extends React.Component {
     render (){
       // console.log(this.props)
       let pic = {
-        uri: 'http://fanaru.com/fantasy-art/image/232259-fantasy-art-a-burning-rose.gif'
+        uri: 'https://fanaru.com/fantasy-art/image/232259-fantasy-art-a-burning-rose.gif'
       };
       return (
         <View style={styles.container}>

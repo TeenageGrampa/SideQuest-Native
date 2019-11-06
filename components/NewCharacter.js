@@ -2,7 +2,7 @@ import React from  'react'
 import { connect } from 'react-redux'
 import Skills from './Skills'
 import { ScrollView } from 'react-native-gesture-handler';
-import { StyleSheet, Button, Text, View, Image, ImageBackground, Picker, SafeAreaView, TextInput } from 'react-native';
+import { StyleSheet, Button, Text, View, Image, ImageBackground, Picker, SafeAreaView, TextInput, AsyncStorage } from 'react-native';
 
 
 
@@ -120,8 +120,8 @@ class NewCharacter extends React.Component{
         this.props.AddSkills(skills)
     }
 
-    handleArmor = (e) =>{
-        if(e.target.value === 'shields' || e.target.value === 'shields (druids will not wear armor or use shields made of metal)'){
+    handleArmor = (choice) =>{
+        if(choice === 'shields' || choice === 'shields (druids will not wear armor or use shields made of metal)'){
             if(this.state.shield === false){
                 this.setState({
                     armorClass: this.state.armorClass + 2
@@ -132,7 +132,7 @@ class NewCharacter extends React.Component{
             })
         } else {
             this.setState({
-                armor: e.target.value.toLowerCase()
+                armor: choice.toLowerCase()
             },() =>  {this.calculateArmor()})
         }
     }
@@ -163,12 +163,11 @@ class NewCharacter extends React.Component{
     }
 
 
-    handleSubmit =(e) =>  {
-        e.preventDefault()
+    handleSubmit =() =>  {
         if(this.props.skills && this.state.armorClass > 0){
         const hitDieNum = this.props.newCharClass.hit_dice.split('d')[1]
         const maxHP = parseInt(hitDieNum) + this.props.mods.conMod
-                fetch('http://localhost:3000/character_skills', {
+                fetch('https://sidequest-api.herokuapp.com/character_skills', {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
@@ -195,7 +194,7 @@ class NewCharacter extends React.Component{
                     stealth: this.props.skills.Stealth
                 })
             }).then(r => r.json()).then(console.log)
-                fetch('http://localhost:3000/character_stats', {
+                fetch('https://sidequest-api.herokuapp.com/character_stats', {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
@@ -224,12 +223,17 @@ class NewCharacter extends React.Component{
     
 
     handleCreate = () => {
-        // this.props.history.push('./profile')
+        this.props.navigation.navigate('Profile')
     }
 
-    handleLogout = () => {
-        localStorage.clear()
-        this.props.history.push('/')
+    logout = async () => {
+        try {
+            await AsyncStorage.removeItem('token');
+            this.props.navigation.navigate('Home')
+          } catch (error) {
+            // Error retrieving data
+            console.log(error.message);
+          }
     }
 
     
@@ -242,7 +246,7 @@ class NewCharacter extends React.Component{
         const hitDieNum = this.props.newCharClass.hit_dice.split('d')[1]
         const maxHP = parseInt(hitDieNum) + this.props.mods.conMod
         const armorChoices = this.props.newCharClass.prof_armor.split(', ')
-        const armorBtns = armorChoices.map(choice => choice === 'All armor' ? <View><Button onPress={() => this.handleArmor()} value="light armor" title="Light armor"/><Button onPress={() => this.handleArmor()} value="medium armor" title="Medium armor"/><Button onPress={() => this.handleArmor()} value="heavy armor" title="Heavy armor"/></View> : <Button value={choice} onPress={() => this.handleArmor()}>{choice}</Button>)
+        const armorBtns = armorChoices.map(choice => choice === 'All armor' ? <View><Button onPress={() => this.handleArmor()} value="light armor" title="Light armor"/><Button onPress={() => this.handleArmor()} value="medium armor" title="Medium armor"/><Button onPress={() => this.handleArmor()} value="heavy armor" title="Heavy armor"/></View> : <Button value={choice} onPress={() => this.handleArmor(choice)} title={choice}>{choice}</Button>)
         return(
             <SafeAreaView>
                 <ScrollView>
@@ -256,7 +260,7 @@ class NewCharacter extends React.Component{
                             <Text>
                                 You have {this.state.proficiencyPoints} given by your class. Confirm how to use them and pick your armor class before you confirm.
                             </Text>
-                            <Button onPress={() => this.handleLogout()} title="Logout"/>
+                            <Button onPress={() => this.logout()} title="Logout"/>
                         </View>
                     </View>
                 </View>

@@ -94,7 +94,7 @@ class NewCharacter extends React.Component{
         this.props.AddWisdom(this.state.stats.wisdom)
         this.props.AddCharisma(this.state.stats.strength)
         this.getModifiers(this.state.stats)
-        fetch('http://localhost:3000/character_mods', {
+        fetch('https://sidequest-api.herokuapp.com//character_mods', {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',

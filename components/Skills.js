@@ -49,12 +49,12 @@ class Skills extends React.Component{
     }
 
 
-    handleClick = (e) => {
+    handleClick = (choice) => {
         if(this.props.proficiencyPoints > 0){
             this.setState({
                 skills: {
                     ...this.state.skills,
-                    [e.target.value]: !this.state.skills[e.target.value]
+                    [choice]: !this.state.skills[choice]
                 }
             })
             this.props.handleChoice()
@@ -129,96 +129,115 @@ class Skills extends React.Component{
     render(){
         return(
             <View>
-                <Button  onPress={() => this.handleReset()} title="Reset"/> {this.props.proficiencyPoints === 0 ? <Button  onPress={() => this.handleConfirm()} title="Confirm"/> : null}
+                <Button  onPress={() => this.handleReset()} title="Reset"/> 
+                {this.props.proficiencyPoints === 0 ? <Button  onPress={() => this.handleConfirm()} title="Confirm"/> : null}
                 
                 <Text>Acrobatics (Dex) - </Text>
                 {this.props.newCharClass.name === 'Bard' || this.props.newCharClass.name ==='Fighter' || this.props.newCharClass.name ==='Monk' || this.props.newCharClass.name ==='Rogue'  ? 
-                <Button  value="Acrobatics" onPress={() => this.handleClick()} title="+"/> : null }
+                <Button  value="Acrobatics" onPress={() => this.handleClick("Acrobatics")} title="+"/> : null }
+
                 {this.state.skills.Acrobatics ? <Text>{this.props.mods.dexMod + 2}</Text> : <Text>{this.props.mods.dexMod}</Text>}
 
                 <Text>Animal Handling (Wis) - </Text>
                 {this.props.newCharClass.name === 'Bard' || this.props.newCharClass.name ==='Barbarian' || this.props.newCharClass.name ==="Druid" || this.props.newCharClass.name ==='Fighter' || this.props.newCharClass.name ==='Ranger' ? 
-                <Button  onPress={() => this.handleClick()} value="AnimalHandling"  title="+"/> : null}
+                <Button  onPress={() => this.handleClick("AnimalHandling")} value="AnimalHandling"  title="+"/> : null}
+
                 {this.state.skills.AnimalHandling ? <Text>{this.props.mods.wisMod + 2}</Text> : <Text>{this.props.mods.wisMod}</Text>}
 
                 <Text>Arcana (Int) - </Text>
                 {this.props.newCharClass.name === 'Bard' || this.props.newCharClass.name ==="Druid" || this.props.newCharClass.name ==='Sorcerer' || this.props.newCharClass.name ==='Warlock' || this.props.newCharClass.name ==='Wizard' ? 
-                <Button  onPress={() => this.handleClick()} value="Arcana"  title="+"/> : null}
+                <Button  onPress={() => this.handleClick("Arcana")} value="Arcana"  title="+"/> : null}
+
                 {this.state.skills.Arcana ? <Text>{this.props.mods.intMod + 2}</Text> : <Text>{this.props.mods.intMod}</Text>}
 
                 <Text>Athletics (Str) - </Text>
                 {this.props.newCharClass.name === 'Bard' || this.props.newCharClass.name ==='Barbarian' || this.props.newCharClass.name ==='Fighter' || this.props.newCharClass.name ==='Monk' || this.props.newCharClass.name ==='Paladin' || this.props.newCharClass.name ==='Ranger' || this.props.newCharClass.name ==='Rogue' ? 
-                <Button  onPress={() => this.handleClick()} value="Athletics"  title="+"/> : null}
+                <Button  onPress={() => this.handleClick("Athletics")} value="Athletics"  title="+"/> : null}
+
                 {this.state.skills.Athletics ? <Text>{this.props.mods.strMod + 2}</Text> : <Text>{this.props.mods.strMod}</Text>}
 
                 <Text>Deception (Cha) - </Text>
                 {this.props.newCharClass.name === 'Bard' || this.props.newCharClass.name ==='Rogue' || this.props.newCharClass.name ==='Sorcerer' || this.props.newCharClass.name ==='Warlock' ? 
-                <Button  onPress={() => this.handleClick()} value="Deception" title="+"/> : null}
+                <Button  onPress={() => this.handleClick("Deception")} value="Deception" title="+"/> : null}
+
                 {this.state.skills.Deception ? <Text>{this.props.mods.chrMod + 2}</Text> : <Text>{this.props.mods.chrMod}</Text>}
 
                 <Text>History (Int) - </Text>
                 {this.props.newCharClass.name === 'Bard' || this.props.newCharClass.name ==='Cleric' || this.props.newCharClass.name ==='Fighter' || this.props.newCharClass.name ==='Monk' || this.props.newCharClass.name ==='Warlock' || this.props.newCharClass.name ==='Wizard' ? 
-                <Button  onPress={() => this.handleClick()} value="History" title="+"/> : null}
+                <Button  onPress={() => this.handleClick("History")} value="History" title="+"/> : null}
+
                 {this.state.skills.History ? <Text>{this.props.mods.intMod + 2}</Text> : <Text>{this.props.mods.intMod}</Text>}
 
                 <Text>Insight (Wis) - </Text>
                 {this.props.newCharClass.name === 'Bard' || this.props.newCharClass.name === 'Cleric' || this.props.newCharClass.name ==="Druid" || this.props.newCharClass.name ==='Fighter' || this.props.newCharClass.name ==='Monk' || this.props.newCharClass.name ==='Paladin' || this.props.newCharClass.name ==='Ranger' || this.props.newCharClass.name ==='Rogue' || this.props.newCharClass.name ==='Sorcerer' || this.props.newCharClass.name ==='Wizard'? 
-                <Button  onPress={() => this.handleClick()} value="Insight" title="+"/> : null}
+                <Button  onPress={() => this.handleClick("Insight")} value="Insight" title="+"/> : null}
+
                 {this.state.skills.Insight ? <Text>{this.props.mods.wisMod + 2}</Text> : <Text>{this.props.mods.wisMod}</Text>}
 
                 <Text>Intimidation (Cha) - </Text>
                 {this.props.newCharClass.name === 'Bard' || this.props.newCharClass.name ==='Barbarian' || this.props.newCharClass.name ==='Fighter' || this.props.newCharClass.name ==='Paladin' || this.props.newCharClass.name ==='Rogue' || this.props.newCharClass.name ==='Sorcerer' || this.props.newCharClass.name ==='Warlock' ? 
-                <Button  onPress={() => this.handleClick()} value="Intimidation" title="+"/> : null}
+                <Button  onPress={() => this.handleClick("Intimidation")} value="Intimidation" title="+"/> : null}
+
                 {this.state.skills.Intimidation ? <Text>{this.props.mods.chrMod + 2}</Text> : <Text>{this.props.mods.chrMod}</Text>}
 
                 <Text>Investigation (Int) - </Text>
                 {this.props.newCharClass.name === 'Bard' || this.props.newCharClass.name ==='Ranger' || this.props.newCharClass.name ==='Rogue' || this.props.newCharClass.name ==='Warlock' || this.props.newCharClass.name ==='Wizard' ? 
-                <Button  onPress={() => this.handleClick()} value="Investigation" title="+"/> : null}
+                <Button  onPress={() => this.handleClick("Investigation")} value="Investigation" title="+"/> : null}
+
                 {this.state.skills.Investigation ? <Text>{this.props.mods.intMod + 2}</Text> : <Text>{this.props.mods.intMod}</Text>}
 
                 <Text>Medicine (Wis) - </Text>
                 {this.props.newCharClass.name === 'Bard' || this.props.newCharClass.name ==='Cleric' || this.props.newCharClass.name ==="Druid" || this.props.newCharClass.name ==='Paladin' || this.props.newCharClass.name ==='Wizard' ? 
-                <Button  onPress={() => this.handleClick()} value="Medicine" title="+"/> : null}
+                <Button  onPress={() => this.handleClick("Medicine")} value="Medicine" title="+"/> : null}
+
                 {this.state.skills.Medicine ? <Text>{this.props.mods.wisMod + 2}</Text> : <Text>{this.props.mods.wisMod}</Text>}
 
                 <Text>Nature (Int) - </Text>
                 {this.props.newCharClass.name === 'Bard' || this.props.newCharClass.name ==='Barbarian' || this.props.newCharClass.name ==="Druid" || this.props.newCharClass.name ==='Ranger' ? 
-                <Button  onPress={() => this.handleClick()} value="Nature" title="+"/> : null}
+                <Button  onPress={() => this.handleClick("Nature")} value="Nature" title="+"/> : null}
+
                 {this.state.skills.Nature ? <Text>{this.props.mods.intMod + 2}</Text> : <Text>{this.props.mods.intMod}</Text>}
 
                 <Text>Perception (Wis) - </Text>
                 {this.props.newCharClass.name === 'Bard' || this.props.newCharClass.name ==='Barbarian' || this.props.newCharClass.name ==="Druid" || this.props.newCharClass.name ==='Fighter' || this.props.newCharClass.name ==='Ranger' || this.props.newCharClass.name ==='Rogue' ? 
-                <Button  onPress={() => this.handleClick()} value="Perception" title="+"/> : null}
+                <Button  onPress={() => this.handleClick("Perception")} value="Perception" title="+"/> : null}
+
                 {this.state.skills.Perception ? <Text>{this.props.mods.wisMod + 2}</Text> : <Text>{this.props.mods.wisMod}</Text>}
 
                 <Text>Performance (Cha) - </Text>
                 {this.props.newCharClass.name === 'Bard' || this.props.newCharClass.name ==='Rogue' ? 
-                <Button   onPress={() => this.handleClick()} value="Performance" title="+"/> : null}
+                <Button   onPress={() => this.handleClick("Performance")} value="Performance" title="+"/> : null}
+
                 {this.state.skills.Performance ? <Text>{ this.props.mods.chrMod +2}</Text> : <Text>{this.props.mods.chrMod}</Text>}
 
                 <Text>Persuasion (Cha) - </Text>
                 {this.props.newCharClass.name === 'Bard' || this.props.newCharClass.name ==='Cleric' || this.props.newCharClass.name ==='Paladin' || this.props.newCharClass.name ==='Rogue' || this.props.newCharClass.name ==='Sorcerer' ? 
-                <Button   onPress={() => this.handleClick()} value="Persuasion" title="+"/> : null}
+                <Button   onPress={() => this.handleClick("Persuasion")} value="Persuasion" title="+"/> : null}
+
                 {this.state.skills.Persuasion ? <Text>{ this.props.mods.chrMod +2}</Text> : <Text>{this.props.mods.chrMod}</Text>}
 
                 <Text>Religion (Int) - </Text>
                 {this.props.newCharClass.name === 'Bard' || this.props.newCharClass.name ==='Cleric' || this.props.newCharClass.name ==="Druid" || this.props.newCharClass.name ==='Monk' || this.props.newCharClass.name ==='Paladin' || this.props.newCharClass.name ==='Sorcerer' || this.props.newCharClass.name ==='Warlock' || this.props.newCharClass.name ==='Wizard'? 
-                <Button   onPress={() => this.handleClick()} value="Religeon"  title="+"/> : null}
+                <Button   onPress={() => this.handleClick("Religeon")} value="Religeon"  title="+"/> : null}
+
                 {this.state.skills.Religion ? <Text>{ this.props.mods.intMod +2}</Text> : <Text>{this.props.mods.intMod}</Text>}
 
                 <Text>Sleight of Hand (Dex) - </Text>
                 {this.props.newCharClass.name === 'Bard' || this.props.newCharClass.name ==='Rogue' ? 
-                <Button   onPress={() => this.handleClick()} value="SleightofHand" title="+"/> : null}
+                <Button   onPress={() => this.handleClick("SleightofHand")} value="SleightofHand" title="+"/> : null}
+
                 {this.state.skills.SleightofHand ? <Text>{ this.props.mods.dexMod +2}</Text> : <Text>{this.props.mods.dexMod}</Text>}
 
                 <Text>Stealth (Dex) - </Text>
                 {this.props.newCharClass.name === 'Bard' || this.props.newCharClass.name ==='Monk' || this.props.newCharClass.name ==='Ranger' || this.props.newCharClass.name ==='Rogue' ? 
-                <Button   onPress={() => this.handleClick()} value="Stealth" title="+"/> : null}
+                <Button   onPress={() => this.handleClick("Stealth")} value="Stealth" title="+"/> : null}
+
                 {this.state.skills.Stealth ? <Text>{ this.props.mods.dexMod +2}</Text> : <Text>{this.props.mods.dexMod}</Text>}
 
                 <Text>Survival (Wis) - </Text>
                 {this.props.newCharClass.name === 'Bard' || this.props.newCharClass.name ==='Barbarian' || this.props.newCharClass.name ==="Druid" || this.props.newCharClass.name ==='Fighter' || this.props.newCharClass.name ==='Ranger' ? 
-                <Button onPress={() => this.handleClick()} value="Survival" title="+"/> : null}
+                <Button onPress={() => this.handleClick("Survival" )} value="Survival" title="+"/> : null}
+                
                 {this.state.skills.Survival ? <Text>{ this.props.mods.wisMod +2}</Text> : <Text>{this.props.mods.wisMod}</Text>}
             </View>
         )
