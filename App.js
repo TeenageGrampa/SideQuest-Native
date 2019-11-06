@@ -6,6 +6,7 @@ import HomePage from './components/HomePage';
 import LoginPage from './components/LoginPage';
 import NewClass from './components/NewClass';
 import NewCharacter from './components/NewCharacter';
+import AllCharacters from './components/AllCharacters';
 import NewRace from './components/NewRace';
 import SignUpPage from './components/SignUpPage';
 import StatRoll from './components/StatRoll';
@@ -57,6 +58,9 @@ const AppNavigator = createStackNavigator({
   },
   NewCharacter: {
     screen: NewCharacter
+  },
+  AllCharacters: {
+    screen: AllCharacters
   }
 }, {
   initialRouteName: "Home"

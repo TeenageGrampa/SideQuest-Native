@@ -21,17 +21,48 @@ class ProfilePage extends React.Component {
       }
   }
 
-  componentDidMount(){
-    fetch('https://sidequest-api.herokuapp.com/profile',{
-        headers: {
-          'Authorization': `Bearer ${this.props.token}`
-        }
-        })
-        .then(res => res.json())
-        .then(user => this.props.LogIn(user))
-    }
 
-    render (){
+  componentDidMount(){
+      fetch('https://sidequest-api.herokuapp.com/profile',{
+      headers: {
+        'Authorization': `Bearer ${this.props.token}`
+      }
+      })
+      .then(res => res.json())
+      .then(user => 
+        {this.props.LogIn(user)
+  
+          fetch(`https://sidequest-api.herokuapp.com/users/${this.props.currentUser.id}`)
+          .then(r => r.json()).then(user => this.props.SelectCharacter(user.characters[0], this.getGames(user.games), this.setState({
+            DMGames: user.dungeon_master_games
+          }, () => this.getRequests(user.dungeon_master_games))))}
+      )
+
+      if(this.props.currentUser){
+        this.checkCharacters()
+        }
+  }
+
+  checkCharacters = () => {
+    fetch(`https://sidequest-api.herokuapp.com/users/${this.props.currentUser.id}`)
+    .then(r => r.json())
+    .then(user => this.setState({
+        AllCharacters: user.characters
+    }, () => {
+        if(this.state.AllCharacters){for(let i = 0; i < this.state.AllCharacters.length; i++){
+            if(this.state.AllCharacters[i].race.length > 0 && this.state.AllCharacters[i].class.length > 0 && this.state.AllCharacters[i].stats.length > 0 && this.state.AllCharacters[i].skills.length > 0 && this.state.AllCharacters[i].mods.length > 0 ){
+                console.log('checked')
+            } else {
+                fetch(`https://sidequest-api.herokuapp.com/characters/${this.state.AllCharacters[i].id}`, {
+                    method: 'DELETE'
+                }).then(r => r.json()).then(console.log('deleted'))
+            }
+        }
+      }
+    }))
+  }
+
+  render (){
         console.log(this.props)
       let pic = {
         uri: 'http://fanaru.com/fantasy-art/image/232259-fantasy-art-a-burning-rose.gif'
@@ -48,6 +79,12 @@ class ProfilePage extends React.Component {
         title="NewCharacter"
         onPress={() =>
           this.props.navigation.navigate('NewClass')
+        }
+        />
+        <Button
+        title="AllCharacters"
+        onPress={() =>
+          this.props.navigation.navigate('AllCharacters')
         }
         />
         <Button
